@@ -14,17 +14,22 @@ gp.fs.0.name = f0
 
 ### The functions, carefully ordered :-)  (See below)
 
-gp.fs.0.func.0 = functions.Left
-gp.fs.0.func.0.nc = nc0
-gp.fs.0.func.1 = functions.Right
+gp.fs.0.func.0 = functions.IfPreyAhead
+gp.fs.0.func.0.nc = nc2
+gp.fs.0.func.1 = functions.Left
 gp.fs.0.func.1.nc = nc0
-
+gp.fs.0.func.2 = functions.Move
+gp.fs.0.func.2.nc = nc0
+gp.fs.0.func.3 = functions.Progn2
+gp.fs.0.func.3.nc = nc2
+gp.fs.0.func.4 = functions.Progn3
+gp.fs.0.func.4.nc = nc3
 
 #
 # We specify our problem here
 #
 
-eval.problem = PredatorPrey
+eval.problem = predatorPrey.PredatorPrey
 # Because our GPData is completely empty, we can just use
 # GPData directly
 eval.problem.data = ec.gp.GPData
@@ -32,6 +37,6 @@ eval.problem.data = ec.gp.GPData
 # Here we determine what kind of Ant we're doing:
 
 # no progn4, 400 moves, Santa Fe trail
-gp.fs.0.size = 2
+gp.fs.0.size = 5
 eval.problem.MAX_MOVES = 400
 eval.problem.file = predator.trl
