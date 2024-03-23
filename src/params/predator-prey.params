@@ -36,7 +36,12 @@ eval.problem.data = ec.gp.GPData
 
 # Here we determine what kind of Ant we're doing:
 
-# no progn4, 400 moves, Santa Fe trail
+# no progn4, 1000 moves, Santa Fe trail
 gp.fs.0.size = 5
-eval.problem.MAX_MOVES = 400
+eval.problem.MAX_MOVES = 1000
 eval.problem.file = predator.trl
+
+
+pop.subpop.0.size = 1000
+
+generations = 400

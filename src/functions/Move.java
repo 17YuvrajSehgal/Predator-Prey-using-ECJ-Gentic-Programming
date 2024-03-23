@@ -51,7 +51,7 @@ public class Move extends GPNode implements EvalPrint{
             default:
         }
 
-        System.out.println("###################################################################New location: "+predator.point);
+        //System.out.println("###################################################################New location: "+predator.point);
 
         predatorPrey.MOVES++;
         if(predatorPrey.ground[predator.point.x][predator.point.y]==-1 && predatorPrey.MOVES<predatorPrey.MAX_MOVES){
