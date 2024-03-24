@@ -39,5 +39,21 @@ public class Predator {
             point.x = 0;
     }
 
+    public boolean isFoodUp(){
+        return ground[point.x][(point.y)% BOARD_COLUMNS] == -1;
+    }
+
+    public boolean isFoodLeft(){
+        return ground[(point.x-1+BOARD_ROWS)%BOARD_ROWS][point.y] == -1;
+    }
+
+    public boolean isFoodDown(){
+        return ground[point.x ][(point.y+1)%BOARD_COLUMNS] == -1;
+    }
+
+    public boolean isFoodRight(){
+        return ground[(point.x+1)%BOARD_ROWS][point.y] == -1;
+    }
+
 
 }

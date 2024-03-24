@@ -42,7 +42,7 @@ public class Right extends GPNode implements EvalPrint {
                 predator.orientation=Orientation.DOWN;
                 break;
             default:
-                evolutionState.output.fatal("Got invalid orientation request in Right-> (" + predatorPrey.predator.orientation + ")");
+                evolutionState.output.fatal("Got invalid orientation request in Right-> (" + predator.orientation + ")");
         }
         predatorPrey.MOVES++;
     }

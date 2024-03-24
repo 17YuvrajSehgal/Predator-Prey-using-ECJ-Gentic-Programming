@@ -24,7 +24,8 @@ gp.fs.0.func.3 = functions.Progn2
 gp.fs.0.func.3.nc = nc2
 gp.fs.0.func.4 = functions.Progn3
 gp.fs.0.func.4.nc = nc3
-
+gp.fs.0.func.5 = functions.Right
+gp.fs.0.func.5.nc = nc0
 #
 # We specify our problem here
 #
@@ -37,7 +38,7 @@ eval.problem.data = ec.gp.GPData
 # Here we determine what kind of Ant we're doing:
 
 # no progn4, 1000 moves, Santa Fe trail
-gp.fs.0.size = 5
+gp.fs.0.size = 6
 eval.problem.MAX_MOVES = 1000
 eval.problem.file = predator.trl
 
