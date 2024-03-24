@@ -1,19 +1,13 @@
 # Copyright 2006 by Sean Luke and George Mason University
 # Licensed under the Academic Free License version 3.0
 # See the file "LICENSE" for more information
-
 parent.0 = koza.params
-
-# Stolen from koza/params -- overwriting just
-# a little for readability
-# You need to create at least one function set,
-# called "f0", which your first tree will use.
 
 gp.fs.size = 1
 gp.fs.0.name = f0
 
-### The functions, carefully ordered :-)  (See below)
-
+### The functions, carefully ordered
+gp.fs.0.size = 6
 gp.fs.0.func.0 = functions.IfPreyAhead
 gp.fs.0.func.0.nc = nc2
 gp.fs.0.func.1 = functions.Left
@@ -26,26 +20,20 @@ gp.fs.0.func.4 = functions.Progn3
 gp.fs.0.func.4.nc = nc3
 gp.fs.0.func.5 = functions.Right
 gp.fs.0.func.5.nc = nc0
-#
-# We specify our problem here
-#
 
+# We specify our problem here
 eval.problem = predatorPrey.PredatorPrey
-# Because our GPData is completely empty, we can just use
-# GPData directly
+
+# We are using GPData directly
 eval.problem.data = ec.gp.GPData
 
-# Here we determine what kind of Ant we're doing:
-
-# no progn4, 1000 moves, Santa Fe trail
-gp.fs.0.size = 6
-eval.problem.MAX_MOVES = 1000
+# Here we determine what are the parameters of our predator-prey problem
+eval.problem.MAX_MOVES = 100
 eval.problem.file = predator.trl
 eval.problem.BOARD_ROWS = 32
 eval.problem.BOARD_COLUMNS = 32
 eval.problem.MAX_PREYS = 89
 
-
+#Parameters of the GP
 pop.subpop.0.size = 1000
-
 generations = 100
