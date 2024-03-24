@@ -45,7 +45,7 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
     private void readGrid(final EvolutionState state, final Parameter base) {
         //read the name of the file where we store the trail data from the parameter file under the field data.
         InputStream inputStream = state.parameters.getResource(base.push("file"), null);
-        this.predator = new Predator(new Point(0,0));        //start reading file
+        this.predator = new Predator(new Point(0,0),this.ground,this.BOARD_ROWS,this.BOARD_COLUMNS);        //start reading file
         if (inputStream != null) {
             LineNumberReader lineNumberReader = null;
             try {

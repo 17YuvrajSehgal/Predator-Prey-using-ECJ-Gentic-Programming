@@ -7,56 +7,46 @@ import ec.gp.ADFStack;
 import ec.gp.GPData;
 import ec.gp.GPIndividual;
 import ec.gp.GPNode;
-import predatorPrey.Orientation;
 import predatorPrey.Predator;
 import predatorPrey.PredatorPrey;
 
-public class Move extends GPNode implements EvalPrint{
+public class Move extends GPNode implements EvalPrint {
 
     @Override
     public String toString() {
         return "move";
     }
+
     @Override
-    public int expectedChildren(){
+    public int expectedChildren() {
         return 0;
     }
 
     @Override
     public void eval(EvolutionState evolutionState, int i, GPData gpData, ADFStack adfStack, GPIndividual gpIndividual, Problem problem) {
-        PredatorPrey predatorPrey = (PredatorPrey)problem;
+        PredatorPrey predatorPrey = (PredatorPrey) problem;
         Predator predator = predatorPrey.predator;
-        Orientation currentPredOrie = predator.orientation;
-        switch (currentPredOrie){
+        switch (predator.orientation) {
             case UP:
-                predatorPrey.predator.point.y--;
-                if(predator.point.y < 0)
-                    predator.point.y = predatorPrey.BOARD_ROWS-1;
+                predator.moveUp();
                 break;
             case LEFT:
-                predatorPrey.predator.point.x--;
-                if(predator.point.x < 0)
-                    predator.point.x = predatorPrey.BOARD_COLUMNS-1;
+                predator.moveLeft();
                 break;
             case DOWN:
-                predatorPrey.predator.point.y++;
-                if(predator.point.y >= predatorPrey.BOARD_ROWS)
-                    predator.point.y=0;
+                predator.moveDown();
                 break;
             case RIGHT:
-                predatorPrey.predator.point.x++;
-                if(predator.point.x >= predatorPrey.BOARD_COLUMNS)
-                    predator.point.x = 0;
+                predator.moveRight();
                 break;
             default:
+                evolutionState.output.fatal("Got invalid orientation request in Right-> (" + predator.orientation + ")");
         }
 
-        //System.out.println("###################################################################New location: "+predator.point);
-
         predatorPrey.MOVES++;
-        if(predatorPrey.ground[predator.point.x][predator.point.y]==-1 && predatorPrey.MOVES<predatorPrey.MAX_MOVES){
+        if (predatorPrey.ground[predator.point.x][predator.point.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
             predatorPrey.TOTAL_PREY_KILLED++;
-            predatorPrey.ground[predator.point.x][predator.point.y]=3;
+            predatorPrey.ground[predator.point.x][predator.point.y] = 3;
 
         }
     }
