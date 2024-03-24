@@ -28,7 +28,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
         Predator predator = predatorPrey.predator;
         switch (predator.orientation) {
             case UP:
-                if (predator.isFoodUp()) {
+                if (predator.isPreyUp()) {
                     this.children[0].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
                 } else {
                     this.children[1].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
@@ -36,7 +36,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case LEFT:
-                if (predator.isFoodLeft()) {
+                if (predator.isPreyLeft()) {
                     this.children[0].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
                 } else {
                     this.children[1].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
@@ -44,7 +44,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case DOWN:
-                if (predator.isFoodDown()) {
+                if (predator.isPreyDown()) {
                     this.children[0].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
                 } else {
                     this.children[1].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
@@ -52,7 +52,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case RIGHT:
-                if (predator.isFoodRight()) {
+                if (predator.isPreyRight()) {
                     this.children[0].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
                 } else {
                     this.children[1].eval(evolutionState, thread, gpData, adfStack, gpIndividual, problem);
@@ -81,7 +81,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
         Predator predator = predatorPrey.predator;
         switch (predatorPrey.predator.orientation) {
             case UP:
-                if (predatorPrey.ground[predator.point.x - 1][predator.point.y] == -1) {
+                if (predatorPrey.ground[predator.location.x - 1][predator.location.y] == -1) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
@@ -89,7 +89,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case LEFT:
-                if (predatorPrey.ground[predator.point.x][predator.point.y - 1] == -1) {
+                if (predatorPrey.ground[predator.location.x][predator.location.y - 1] == -1) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
@@ -97,7 +97,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case DOWN:
-                if (predatorPrey.ground[predator.point.x + 1][predator.point.y] == -1) {
+                if (predatorPrey.ground[predator.location.x + 1][predator.location.y] == -1) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
@@ -105,7 +105,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case RIGHT:
-                if (predatorPrey.ground[predator.point.x][predator.point.y + 1] == -1) {
+                if (predatorPrey.ground[predator.location.x][predator.location.y + 1] == -1) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
