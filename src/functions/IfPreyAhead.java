@@ -64,24 +64,13 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
         }
     }
 
-    /**
-     * TODO: copy above code
-     * @param evolutionState
-     * @param thread
-     * @param gpData
-     * @param adfStack
-     * @param gpIndividual
-     * @param problem
-     * @param ints
-     */
-
     @Override
     public void evalPrint(EvolutionState evolutionState, int thread, GPData gpData, ADFStack adfStack, GPIndividual gpIndividual, Problem problem, int[][] ints) {
         PredatorPrey predatorPrey = (PredatorPrey) problem;
         Predator predator = predatorPrey.predator;
-        switch (predatorPrey.predator.orientation) {
+        switch (predator.orientation) {
             case UP:
-                if (predatorPrey.ground[predator.location.x - 1][predator.location.y] == -1) {
+                if (predator.isPreyUp()) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
@@ -89,7 +78,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case LEFT:
-                if (predatorPrey.ground[predator.location.x][predator.location.y - 1] == -1) {
+                if (predator.isPreyLeft()) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
@@ -97,7 +86,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case DOWN:
-                if (predatorPrey.ground[predator.location.x + 1][predator.location.y] == -1) {
+                if (predator.isPreyDown()) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
@@ -105,7 +94,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             case RIGHT:
-                if (predatorPrey.ground[predator.location.x][predator.location.y + 1] == -1) {
+                if (predator.isPreyRight()) {
                     ((EvalPrint)this.children[0]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
                 } else {
                     ((EvalPrint)this.children[1]).evalPrint(evolutionState, thread, gpData, adfStack, gpIndividual, problem, ints);
@@ -113,7 +102,7 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
                 break;
 
             default:
-                evolutionState.output.fatal("Got invalid orientation request in IfPreyAhead-> (" + predator.orientation + ")");
+                evolutionState.output.fatal("Got invalid orientation request in IfPreyAhead-> (" + predatorPrey.predator.orientation + ")");
         }
     }
 }
