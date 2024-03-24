@@ -21,12 +21,11 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
     public Predator predator;
     public Preys preys;
     public int TOTAL_PREY_KILLED = 0;
-    public final int BOARD_ROWS = 32;
-    public final int BOARD_COLUMNS = 32;
-    public final int[][] ground = new int[BOARD_ROWS][BOARD_COLUMNS];
+    public int BOARD_ROWS;
+    public int BOARD_COLUMNS;
+    public int[][] ground;
     public int MAX_MOVES;
-    public int TOTAL_PREY = 0;
-    public int MAX_PREYS = 89;
+    public int MAX_PREYS;
 //    public int[] preyX; //initial x coordinates of prey
 //    public int[] preyY; //initial y coordinates of prey
 
@@ -34,6 +33,16 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
     public void setup(final EvolutionState state, final Parameter base) {
         super.setup(state, base);
         this.MAX_MOVES = state.parameters.getInt(base.push("MAX_MOVES"), null, 1);
+        this.BOARD_ROWS = state.parameters.getInt(base.push("BOARD_ROWS"), null, 1);
+        this.BOARD_COLUMNS = state.parameters.getInt(base.push("BOARD_COLUMNS"), null, 1);
+        this.MAX_PREYS = state.parameters.getInt(base.push("MAX_PREYS"), null, 1);
+
+        //System.out.println(MAX_MOVES+" "+BOARD_COLUMNS+" "+BOARD_ROWS+" ");
+
+
+        this.ground = new int[BOARD_ROWS][BOARD_COLUMNS];
+
+
 
         //read the maximum moves allowed from the parameter file, and it should be a number greater than 0
         if (this.MAX_MOVES <= 0)
@@ -48,7 +57,7 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         //read the name of the file where we store the trail data from the parameter file under the field data.
         InputStream inputStream = state.parameters.getResource(base.push("file"), null);
         this.predator = new Predator(new Point(0, 0), this.ground, this.BOARD_ROWS, this.BOARD_COLUMNS);
-        this.preys = new Preys(MAX_PREYS);
+        this.preys = new Preys(MAX_PREYS,ground);
         if (inputStream != null) {
             LineNumberReader lineNumberReader = null;
             try {
@@ -69,7 +78,6 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
                         else if (data.charAt(j) == '#') {
                             this.ground[i][j] = -1;
                             preys.addPrey(new Prey(new Point(i, j), ground, BOARD_ROWS, BOARD_COLUMNS));
-                            this.TOTAL_PREY++;
                         } else if (data.charAt(j) == '.') {
                             this.ground[i][j] = 2;
                         } else
@@ -95,9 +103,8 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         else {
             state.output.fatal("Error encountered while loading file or resource", base.push("file"), null);
         }
-//        printArray();
-//        System.out.println("x coordinates of preys:" + Arrays.toString(this.preyX));
-//        System.out.println("x coordinates of preys:" + Arrays.toString(this.preyY));
+        System.out.println("initial Array:");
+        printArray();
 
     }
 
@@ -137,16 +144,17 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
             this.MOVES = 0;
         }
 
-        while (this.MAX_MOVES > this.MOVES && this.TOTAL_PREY > this.TOTAL_PREY_KILLED) {
+        while (this.MAX_MOVES > this.MOVES && this.MAX_PREYS > this.TOTAL_PREY_KILLED) {
             ((GPIndividual) individual).trees[0].child.eval(evolutionState, threadNum, this.input, this.stack, (GPIndividual) individual, this);
         }
 
         KozaFitness fitness = (KozaFitness) individual.fitness;
-        fitness.setStandardizedFitness(evolutionState, this.TOTAL_PREY - this.TOTAL_PREY_KILLED);
+        fitness.setStandardizedFitness(evolutionState, this.MAX_PREYS - this.TOTAL_PREY_KILLED);
         fitness.hits = this.TOTAL_PREY_KILLED;
         individual.evaluated = true;
 
         //restore the preys to the initial positions
+        //System.out.println("Restoring preys to initial location...");
         preys.restorePreyLocations();
 
 

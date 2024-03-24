@@ -41,8 +41,11 @@ eval.problem.data = ec.gp.GPData
 gp.fs.0.size = 6
 eval.problem.MAX_MOVES = 1000
 eval.problem.file = predator.trl
+eval.problem.BOARD_ROWS = 32
+eval.problem.BOARD_COLUMNS = 32
+eval.problem.MAX_PREYS = 89
 
 
 pop.subpop.0.size = 1000
 
-generations = 400
+generations = 100

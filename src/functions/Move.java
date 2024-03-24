@@ -43,13 +43,20 @@ public class Move extends GPNode implements EvalPrint {
                 evolutionState.output.fatal("Got invalid orientation request in Right-> (" + predator.orientation + ")");
         }
 
+        //predatorPrey.printArray();
         predatorPrey.MOVES++;
         if (predatorPrey.ground[predator.location.x][predator.location.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
+            predatorPrey.preys.killPreyAt(predator.location.x,predator.location.y);
+            //System.out.println("killed prey at location: "+predator.location.x+" "+predator.location.y);
             predatorPrey.TOTAL_PREY_KILLED++;
+            //System.out.println("TOTAL_PREY_KILLED"+predatorPrey.TOTAL_PREY_KILLED);
             predatorPrey.ground[predator.location.x][predator.location.y] = 3;
+            //System.out.println("Ate at location: "+predator.location.x+" "+predator.location.y);
         }
-        predatorPrey.preys.moveAllPreysRandomly();
+        predatorPrey.preys.moveAllAlivePreysRandomly();
+        //System.out.println("After randomly moving preys:");
         //predatorPrey.printArray();
+
     }
 
     @Override
