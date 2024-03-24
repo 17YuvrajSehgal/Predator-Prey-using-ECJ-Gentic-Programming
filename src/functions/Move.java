@@ -44,11 +44,12 @@ public class Move extends GPNode implements EvalPrint {
         }
 
         predatorPrey.MOVES++;
-        if (predatorPrey.ground[predator.point.x][predator.point.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
+        if (predatorPrey.ground[predator.location.x][predator.location.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
             predatorPrey.TOTAL_PREY_KILLED++;
-            predatorPrey.ground[predator.point.x][predator.point.y] = 3;
-
+            predatorPrey.ground[predator.location.x][predator.location.y] = 3;
         }
+        predatorPrey.preys.moveAllPreysRandomly();
+        //predatorPrey.printArray();
     }
 
     @Override
