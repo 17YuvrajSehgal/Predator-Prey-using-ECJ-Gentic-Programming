@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * Represents the Predator-Prey problem for Genetic Programming.
+ * references: ec.app.ant.Ant
  */
 public class PredatorPrey extends GPProblem implements SimpleProblemForm {
 
