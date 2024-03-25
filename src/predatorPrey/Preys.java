@@ -25,6 +25,9 @@ public class Preys {
         this.preyList.add(prey);
     }
 
+    /**
+     * Moves all the preys at random locations by 1 unit distance
+     */
     public void moveAllAlivePreysRandomly(){
         for (Prey prey : preyList){
             if(prey.isAlive)
@@ -46,6 +49,9 @@ public class Preys {
         }
     }
 
+    /**
+     * Makes all the preys alive
+     */
     public void aliveAll() {
         for(Prey prey:preyList){
             prey.isAlive=true;

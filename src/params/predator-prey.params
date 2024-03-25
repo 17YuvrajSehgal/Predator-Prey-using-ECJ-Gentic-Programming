@@ -35,12 +35,12 @@ eval.problem = predatorPrey.PredatorPrey
 eval.problem.data = ec.gp.GPData
 
 # Here we determine what are the parameters of our predator-prey problem
-eval.problem.MAX_MOVES = 1000
 eval.problem.file = predator.trl
 eval.problem.BOARD_ROWS = 32
 eval.problem.BOARD_COLUMNS = 32
 eval.problem.MAX_PREYS = 89
+eval.problem.MAX_MOVES = 1000
 
 #Parameters of the GP
 pop.subpop.0.size = 500
-generations = 10
+generations = 100
