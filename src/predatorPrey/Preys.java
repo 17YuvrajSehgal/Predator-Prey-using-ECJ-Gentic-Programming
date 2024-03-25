@@ -1,6 +1,3 @@
-/**
- * Represents a collection of preys in a predator-prey simulation.
- */
 package predatorPrey;
 
 import java.awt.*;
@@ -10,7 +7,6 @@ import java.util.List;
 
 public class Preys {
     private final List<Prey> preyList; // List to store the preys.
-    private final List<Point> initialLocations; // List to store the initial locations of the preys.
     int[][] ground; // The ground grid.
 
     /**
@@ -20,7 +16,6 @@ public class Preys {
      */
     public Preys(int totalPreys, int[][] ground){
         this.preyList = new ArrayList<>(totalPreys);
-        this.initialLocations = new ArrayList<>(totalPreys);
         this.ground = ground;
     }
 
@@ -30,25 +25,8 @@ public class Preys {
      */
     public void addPrey(Prey prey){
         this.preyList.add(prey);
-        this.initialLocations.add(prey.location);
     }
 
-    /**
-     * Restores the initial locations of all the preys.
-     */
-    public void restorePreyLocations() {
-        for(int[] row:ground){
-            Arrays.fill(row,1);
-        }
-
-        for (Point initialLocation : initialLocations) {
-            ground[initialLocation.x][initialLocation.y] = -1;
-        }
-    }
-
-    /**
-     * Moves all alive preys randomly.
-     */
     public void moveAllAlivePreysRandomly(){
         for (Prey prey : preyList){
             if(prey.isAlive)
