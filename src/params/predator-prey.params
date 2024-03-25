@@ -42,5 +42,5 @@ eval.problem.BOARD_COLUMNS = 32
 eval.problem.MAX_PREYS = 89
 
 #Parameters of the GP
-pop.subpop.0.size = 1000
-generations = 100
+pop.subpop.0.size = 500
+generations = 10
