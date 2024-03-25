@@ -2,8 +2,8 @@ import ec.Evolve;
 
 public class Main {
     public static void main(String[] args) {
-        String pathToFiles = "src/results";
-        int numberOfJobs = 1;
+        String pathToFiles = "src/results/";
+        int numberOfJobs = 10;
         String statisticType = "ec.gp.koza.KozaShortStatistics";
         String[] runConfig = new String[] {
                 Evolve.A_FILE, "src/params/predator-prey.params",

@@ -169,6 +169,8 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
                     this.input, this.stack, (GPIndividual)individual, this, ground2);
 
         }
+        predator.location.x=0;
+        predator.location.y=0;
         restorePreyLocations();
 
         for (int[] ints : ground2) {

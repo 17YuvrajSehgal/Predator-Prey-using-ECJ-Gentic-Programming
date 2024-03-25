@@ -42,5 +42,5 @@ eval.problem.MAX_PREYS = 89
 eval.problem.MAX_MOVES = 1000
 
 #Parameters of the GP
-pop.subpop.0.size = 500
+pop.subpop.0.size = 300
 generations = 100
