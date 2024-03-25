@@ -1,3 +1,7 @@
+/**
+ * Represents a node in a genetic programming tree that evaluates whether there's prey ahead.
+ * If there's prey ahead, it executes the first child; otherwise, it executes the second child.
+ */
 package functions;
 
 import ec.EvolutionState;
@@ -12,16 +16,34 @@ import predatorPrey.PredatorPrey;
 
 public class IfPreyAhead extends GPNode implements EvalPrint {
 
+    /**
+     * Returns a string representation of the node.
+     * @return The string representation of the node.
+     */
     @Override
     public String toString() {
         return "IF-PREY-AHEAD";
     }
 
+    /**
+     * Specifies the number of children expected for this node.
+     * @return The expected number of children (2 in this case).
+     */
     @Override
     public int expectedChildren() {
         return 2;
     }
 
+    /**
+     * Evaluates the node's logic.
+     * If prey is detected ahead, it executes the first child; otherwise, it executes the second child.
+     * @param evolutionState The current evolution state.
+     * @param thread The thread number.
+     * @param gpData The GP data.
+     * @param adfStack The ADF stack.
+     * @param gpIndividual The GP individual.
+     * @param problem The problem instance.
+     */
     @Override
     public void eval(EvolutionState evolutionState, int thread, GPData gpData, ADFStack adfStack, GPIndividual gpIndividual, Problem problem) {
         PredatorPrey predatorPrey = (PredatorPrey) problem;
@@ -64,6 +86,17 @@ public class IfPreyAhead extends GPNode implements EvalPrint {
         }
     }
 
+    /**
+     * Evaluates the node's logic and prints debug information.
+     * If prey is detected ahead, it executes the first child; otherwise, it executes the second child.
+     * @param evolutionState The current evolution state.
+     * @param thread The thread number.
+     * @param gpData The GP data.
+     * @param adfStack The ADF stack.
+     * @param gpIndividual The GP individual.
+     * @param problem The problem instance.
+     * @param ints Two-dimensional array holding integer data.
+     */
     @Override
     public void evalPrint(EvolutionState evolutionState, int thread, GPData gpData, ADFStack adfStack, GPIndividual gpIndividual, Problem problem, int[][] ints) {
         PredatorPrey predatorPrey = (PredatorPrey) problem;
