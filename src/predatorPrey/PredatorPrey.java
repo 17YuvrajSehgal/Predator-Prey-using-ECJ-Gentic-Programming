@@ -1,3 +1,6 @@
+/**
+ * Package for classes related to the Predator-Prey simulation.
+ */
 package predatorPrey;
 
 import ec.EvolutionState;
@@ -20,20 +23,52 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents the Predator-Prey problem for Genetic Programming.
+ */
 public class PredatorPrey extends GPProblem implements SimpleProblemForm {
+
+    /** Parameter key for data. */
     public static final String P_DATA = "data";
+
+    /** Number of moves. */
     public int MOVES = 0;
+
+    /** Predator instance. */
     public Predator predator;
+
+    /** Preys instance. */
     public Preys preys;
+
+    /** Total number of preys killed. */
     public int TOTAL_PREY_KILLED = 0;
+
+    /** Number of rows on the board. */
     public int BOARD_ROWS;
+
+    /** Number of columns on the board. */
     public int BOARD_COLUMNS;
+
+    /** Ground grid. */
     public int[][] ground;
+
+    /** Maximum number of moves allowed. */
     public int MAX_MOVES;
+
+    /** Maximum number of preys. */
     public int MAX_PREYS;
+
+    /** Modulus for character representation of predator. */
     public int PMOD;
+
+    /** Initial locations of preys. */
     private List<Point> initialLocations;
 
+    /**
+     * Clones the PredatorPrey object.
+     *
+     * @return A cloned PredatorPrey object.
+     */
     @Override
     public Object clone() {
         PredatorPrey myobj = (PredatorPrey) (super.clone());
@@ -46,7 +81,12 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         return myobj;
     }
 
-
+    /**
+     * Sets up the PredatorPrey problem.
+     *
+     * @param state The current EvolutionState.
+     * @param base  The base parameter.
+     */
     @Override
     public void setup(final EvolutionState state, final Parameter base) {
         super.setup(state, base);
@@ -61,16 +101,22 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         this.ground = new int[BOARD_ROWS][BOARD_COLUMNS];
         this.initialLocations = new ArrayList<>(MAX_PREYS);
 
-
-        //read the maximum moves allowed from the parameter file, and it should be a number greater than 0
+        // Read the maximum moves allowed from the parameter file, and it should be a number greater than 0
         if (this.MAX_MOVES <= 0)
             state.output.error("MAX_MOVES must be greater than 0.");
 
-        //read the predator.trl file to get the defined trail of predators and preys
+        // Read the predator.trl file to get the defined trail of predators and preys
         readGrid(state, base);
-
     }
 
+    /**
+     * Evaluates the fitness of an individual.
+     *
+     * @param evolutionState The current EvolutionState.
+     * @param individual     The individual to evaluate.
+     * @param threadNum      The thread number.
+     * @param i1             Additional parameter (not used).
+     */
     @Override
     public void evaluate(EvolutionState evolutionState, Individual individual, int threadNum, int i1) {
         if (!individual.evaluated) {
@@ -90,12 +136,18 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
             individual.evaluated = true;
         }
 
-        //System.out.println("before:");
-        //printArray();
         restorePreyLocations();
-        //printArray();
     }
 
+    /**
+     * Describes the best individual.
+     *
+     * @param state         The current EvolutionState.
+     * @param individual    The best individual.
+     * @param subpopulation The subpopulation index.
+     * @param threadnum     The thread number.
+     * @param log           Additional parameter (not used).
+     */
     @Override
     public void describe(EvolutionState state, Individual individual, int subpopulation, int threadnum, int log) {
         state.output.println("\n\nBest Individual's Map\n\n", log);
@@ -118,7 +170,7 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
                     this.input, this.stack, (GPIndividual)individual, this, ground2);
 
         }
-        restorePreyLocations();//TODO
+        restorePreyLocations();
 
         for(int i=0;i<ground2.length;i++){
             for (int j=0;j<ground2[0].length;j++){
@@ -136,10 +188,11 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
             }
             state.output.println("", log);
         }
-
-
     }
 
+    /**
+     * Restores prey locations and states.
+     */
     private void restorePreyLocations() {
         for (int[] row : ground) {
             Arrays.fill(row, 1);
@@ -150,6 +203,9 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         preys.aliveAll();
     }
 
+    /**
+     * Prints the contents of the ground array.
+     */
     public void printArray() {
         for (int i = 0; i < this.BOARD_ROWS; i++) {
             for (int j = 0; j < this.BOARD_COLUMNS; j++) {
@@ -160,8 +216,14 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         System.out.println();
     }
 
+    /**
+     * Reads the grid data from a file.
+     *
+     * @param state The current EvolutionState.
+     * @param base  The base parameter.
+     */
     private void readGrid(final EvolutionState state, final Parameter base) {
-        //read the name of the file where we store the trail data from the parameter file under the field data.
+        // Read the name of the file where the trail data is stored from the parameter file under the 'file' field.
         InputStream inputStream = state.parameters.getResource(base.push("file"), null);
         this.predator = new Predator(new Point(0, 0), this.ground, this.BOARD_ROWS, this.BOARD_COLUMNS);
         this.preys = new Preys(MAX_PREYS, ground);
@@ -171,7 +233,7 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
                 for (int i = 0; i < this.BOARD_ROWS; i++) {
                     String data = lineNumberReader.readLine();
 
-                    //if we do not find the expected number of elements then we will stop the program
+                    // If we do not find the expected number of elements, we stop the program.
                     if (data == null) {
                         state.output.warning("The predator trail file ended prematurely");
                         break;
@@ -188,18 +250,17 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
                             state.output.error("Bad character '" + data.charAt(j) + "' on line number " + lineNumberReader.getLineNumber() + " of the predator trail file.");
                     }
                 }
-            } catch (IOException e) {   //in case error occurred while reading file
+            } catch (IOException e) {   // In case an error occurred while reading the file.
                 state.output.fatal("The predator.trl file could not be read due to an IOException:\n" + e);
-            }  //close the input reader if not null
+            }  // Close the input reader if not null.
             state.output.exitIfErrors();
         }
-        //if there was an issue while reading the predator.trl file, throw error.
+        // If there was an issue while reading the predator.trl file, throw an error.
         else {
             state.output.fatal("Error encountered while loading file or resource", base.push("file"), null);
         }
-        System.out.println("initial Array:");
+        System.out.println("Initial Array:");
         printArray();
-
     }
 
 
