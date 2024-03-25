@@ -40,10 +40,9 @@ public class Preys {
         for(int[] row:ground){
             Arrays.fill(row,1);
         }
-        for (int i = 0; i < preyList.size(); i++) {
-            Prey prey = preyList.get(i);
-            Point location = prey.location = initialLocations.get(i);
-            ground[location.x][location.y]=-1;
+
+        for (Point initialLocation : initialLocations) {
+            ground[initialLocation.x][initialLocation.y] = -1;
         }
     }
 
