@@ -79,7 +79,7 @@ public class Move extends GPNode implements EvalPrint {
         if (predatorPrey.ground[predator.location.x][predator.location.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
             predatorPrey.preys.killPreyAt(predator.location.x, predator.location.y);
             predatorPrey.TOTAL_PREY_KILLED++;
-            predatorPrey.ground[predator.location.x][predator.location.y] = 3;//TODO
+            predatorPrey.ground[predator.location.x][predator.location.y] = 1;//TODO
         }
 
         // Move all the alive preys randomly
@@ -129,18 +129,16 @@ public class Move extends GPNode implements EvalPrint {
         if (predatorPrey.ground[predator.location.x][predator.location.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
             predatorPrey.preys.killPreyAt(predator.location.x, predator.location.y);
             predatorPrey.TOTAL_PREY_KILLED++;
-            predatorPrey.ground[predator.location.x][predator.location.y] = 3;//TODO
+            predatorPrey.ground[predator.location.x][predator.location.y] = 1;//TODO
         }
 
         // Move all the alive preys randomly
         predatorPrey.preys.moveAllAlivePreysRandomly();
 
-        // Print the predator's position on the ground
-        if (predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
-            if (predatorPrey.PMOD > 122) {
-                predatorPrey.PMOD = 97;
-            }
-            ground2[predator.location.x][predator.location.y] = (char) predatorPrey.PMOD;
+        if(predatorPrey.MOVES<predatorPrey.MAX_MOVES){
+            if(++predatorPrey.PMOD >122)
+                predatorPrey.PMOD=97;
+            ground2[predator.location.x][predator.location.y]=predatorPrey.PMOD;
         }
     }
 }

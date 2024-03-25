@@ -47,4 +47,10 @@ public class Preys {
             }
         }
     }
+
+    public void aliveAll() {
+        for(Prey prey:preyList){
+            prey.isAlive=true;
+        }
+    }
 }
