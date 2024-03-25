@@ -7,7 +7,7 @@ public class Main {
         String statisticType = "ec.gp.koza.KozaShortStatistics";
         String[] runConfig = new String[] {
                 Evolve.A_FILE, "src/params/predator-prey.params",
-                //"-p", ("stat="+statisticType),
+                "-p", ("stat="+statisticType),
                 "-p", ("stat.file=$"+pathToFiles+"out.stat"),
                 "-p", ("jobs="+numberOfJobs)
         };
