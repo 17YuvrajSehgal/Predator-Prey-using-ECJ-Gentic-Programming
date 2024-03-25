@@ -5,7 +5,6 @@ package predatorPrey;
 
 import ec.EvolutionState;
 import ec.Individual;
-import ec.app.ant.Ant;
 import ec.app.ant.func.EvalPrint;
 import ec.gp.GPData;
 import ec.gp.GPIndividual;
@@ -75,7 +74,7 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         myobj.ground = new int[this.ground.length][];
 
         for (int x = 0; x < this.ground.length; ++x) {
-            myobj.ground[x] = (int[]) ((int[]) this.ground[x].clone());
+            myobj.ground[x] = this.ground[x].clone();
         }
 
         return myobj;
@@ -172,9 +171,9 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
         }
         restorePreyLocations();
 
-        for(int i=0;i<ground2.length;i++){
-            for (int j=0;j<ground2[0].length;j++){
-                switch (ground2[i][j]){
+        for (int[] ints : ground2) {
+            for (int j = 0; j < ground2[0].length; j++) {
+                switch (ints[j]) {
                     case -1:
                         state.output.print("#", log);
                         break;
@@ -182,7 +181,7 @@ public class PredatorPrey extends GPProblem implements SimpleProblemForm {
                         state.output.print(".", log);
                         break;
                     default:
-                        state.output.print("" + (char)ground2[i][j], log);
+                        state.output.print("" + (char) ints[j], log);
 
                 }
             }
