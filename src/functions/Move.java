@@ -79,7 +79,7 @@ public class Move extends GPNode implements EvalPrint {
         if (predatorPrey.ground[predator.location.x][predator.location.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
             predatorPrey.preys.killPreyAt(predator.location.x, predator.location.y);
             predatorPrey.TOTAL_PREY_KILLED++;
-            predatorPrey.ground[predator.location.x][predator.location.y] = 1;//TODO
+            predatorPrey.ground[predator.location.x][predator.location.y] = 3;//TODO
         }
 
         // Move all the alive preys randomly
@@ -129,7 +129,7 @@ public class Move extends GPNode implements EvalPrint {
         if (predatorPrey.ground[predator.location.x][predator.location.y] == -1 && predatorPrey.MOVES < predatorPrey.MAX_MOVES) {
             predatorPrey.preys.killPreyAt(predator.location.x, predator.location.y);
             predatorPrey.TOTAL_PREY_KILLED++;
-            predatorPrey.ground[predator.location.x][predator.location.y] = 1;//TODO
+            predatorPrey.ground[predator.location.x][predator.location.y] = 3;//TODO
         }
 
         // Move all the alive preys randomly
