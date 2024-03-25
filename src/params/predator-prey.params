@@ -1,25 +1,32 @@
 # Copyright 2006 by Sean Luke and George Mason University
 # Licensed under the Academic Free License version 3.0
 # See the file "LICENSE" for more information
+
 parent.0 = koza.params
 
+# We have one function set, of class GPFunctionSet
 gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+# We'll call the function set "f0".
 gp.fs.0.name = f0
 
-### The functions, carefully ordered
+### The functions
 gp.fs.0.size = 6
 gp.fs.0.func.0 = functions.IfPreyAhead
 gp.fs.0.func.0.nc = nc2
-gp.fs.0.func.1 = functions.Left
-gp.fs.0.func.1.nc = nc0
-gp.fs.0.func.2 = functions.Move
-gp.fs.0.func.2.nc = nc0
 gp.fs.0.func.3 = functions.Progn2
 gp.fs.0.func.3.nc = nc2
 gp.fs.0.func.4 = functions.Progn3
 gp.fs.0.func.4.nc = nc3
+
+### The terminals
+gp.fs.0.func.1 = functions.Left
+gp.fs.0.func.1.nc = nc0
+gp.fs.0.func.2 = functions.Move
+gp.fs.0.func.2.nc = nc0
 gp.fs.0.func.5 = functions.Right
 gp.fs.0.func.5.nc = nc0
+
 
 # We specify our problem here
 eval.problem = predatorPrey.PredatorPrey
@@ -28,7 +35,7 @@ eval.problem = predatorPrey.PredatorPrey
 eval.problem.data = ec.gp.GPData
 
 # Here we determine what are the parameters of our predator-prey problem
-eval.problem.MAX_MOVES = 100
+eval.problem.MAX_MOVES = 1000
 eval.problem.file = predator.trl
 eval.problem.BOARD_ROWS = 32
 eval.problem.BOARD_COLUMNS = 32
